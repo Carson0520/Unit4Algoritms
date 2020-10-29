@@ -5,7 +5,7 @@
  */
 package InsertRemove;
 
-import static InsertRemove.Person.search;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
@@ -33,11 +33,62 @@ public class PeopleList extends javax.swing.JFrame {
 
     }
 
+    public void show(Person p) {
+        nametxt.setText(p.getName());
+        agetxt.setText("" + p.getAge());
+        if (p.getGender() == "M") {
+            optmale.setSelected(true);
+        } else {
+            optfemale.setSelected(true);
+        }
+    }
+
     public void clearForm() {
         nametxt.setText("");
         agetxt.setText("");
         buttonGroup1.clearSelection();
         ppllst.clearSelection();
+    }
+
+    public static int search(ArrayList a, Object searchValue) {
+        int left = 0;
+        int right = a.size() - 1;
+        while (left <= right) {
+            int midpoint = (left + right) / 2;
+            int result = ((Comparable) a.get(midpoint)).compareTo(searchValue);
+            if (result == 0) {
+                return midpoint;
+            } else if (result < 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        return -1;
+
+    }
+
+    public static int findInsertPoint(ArrayList a, Object searchValue) {
+        int left = 0;
+        int right = a.size() - 1;
+        int midpoint = 0;
+        int result = 0;
+
+        while (left <= right) {
+            midpoint = (left + right) / 2;
+            result = ((Comparable) a.get(midpoint)).compareTo(searchValue);
+
+            if (result < 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        if (result < 0) {
+            midpoint++;
+        }
+        return midpoint;
+
     }
 
     /**
@@ -94,9 +145,16 @@ public class PeopleList extends javax.swing.JFrame {
 
         buttonGroup1.add(optmale);
         optmale.setText("Male");
+        optmale.setActionCommand("M");
 
         buttonGroup1.add(optfemale);
         optfemale.setText("Female");
+        optfemale.setActionCommand("F");
+        optfemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optfemaleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,6 +203,11 @@ public class PeopleList extends javax.swing.JFrame {
 
         mnuadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/insert.png"))); // NOI18N
         mnuadd.setText("Add");
+        mnuadd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuaddActionPerformed(evt);
+            }
+        });
         jMenu2.add(mnuadd);
 
         mnudelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/delete.png"))); // NOI18N
@@ -166,6 +229,11 @@ public class PeopleList extends javax.swing.JFrame {
 
         mnufemale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/female.png"))); // NOI18N
         mnufemale.setText("Female");
+        mnufemale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnufemaleActionPerformed(evt);
+            }
+        });
         jMenu3.add(mnufemale);
 
         mnumale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/male.png"))); // NOI18N
@@ -239,15 +307,33 @@ public class PeopleList extends javax.swing.JFrame {
     }//GEN-LAST:event_ppllstMouseClicked
 
     private void mnudeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnudeleteActionPerformed
-        // TODO add your handling code here:
         String name = "" + ppllst.getSelectedValue();
-        for (Person p : people) {
-            System.out.println(p);
-            list.getElementAt(p.getName());
-            list.removeElement(ppllst.getSelectedIndex());
-            
-        }
+        int loc = search(people, new Person(name, 0, ""));
+        list.removeElementAt(ppllst.getSelectedIndex());
+        people.remove(loc);
+        clearForm();
     }//GEN-LAST:event_mnudeleteActionPerformed
+
+    private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
+        String name = nametxt.getText();
+        String gender = buttonGroup1.getSelection().getActionCommand(); 
+        int age = Integer.parseInt(agetxt.getText());
+        System.out.println(gender);
+        Person x = new Person(name, age, gender);
+        int loc = findInsertPoint(people, x);
+        people.add(loc, x);
+        list.add(loc, name);
+        
+    }//GEN-LAST:event_mnuaddActionPerformed
+
+    private void optfemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optfemaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_optfemaleActionPerformed
+
+    private void mnufemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemaleActionPerformed
+        // TODO 
+        
+    }//GEN-LAST:event_mnufemaleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,16 +349,24 @@ public class PeopleList extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleList.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleList.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleList.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PeopleList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PeopleList.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -309,4 +403,5 @@ public class PeopleList extends javax.swing.JFrame {
     private javax.swing.JRadioButton optmale;
     private javax.swing.JList<String> ppllst;
     // End of variables declaration//GEN-END:variables
+
 }
