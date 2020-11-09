@@ -14,13 +14,27 @@ public class ISSStudent implements Comparable{
         address = a;
         id = i;
     }
+    
+    public String toString(){
+        return "Name:\t\t" + name + "\nAddress:\t" + address +
+                "\nID:\t\t" + id;
+    }
+    
+    public int getID(){
+        return id;
+    }
+    
+        @Override
+    public int compareTo(Object t) {
+        if (this.id > ((ISSStudent)t).getID())
+            return 1;
+        else if(this.id < ((ISSStudent)t).getID())
+            return -1;
+        else 
+            return 0;
+    }    
     public String getName(){
         return name;
     }
-    
-    @Override
-    public int compareTo(Object t) {
-        ISSStudent other = (ISSStudent)t;
-        return name.compareTo(other.getName());
-    }
+
 }

@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -17,11 +18,10 @@ import java.util.logging.Logger;
  */
 public class StudentSort extends javax.swing.JFrame {
 
-    /**
-     * Creates new form StudentSort
-     */
+    String name, add;
+    int id;
     ISSStudent stu[] = new ISSStudent[100];
-    DefualtListModel model;
+    DefaultListModel model;
 
     public StudentSort() {
         initComponents();
@@ -35,7 +35,7 @@ public class StudentSort extends javax.swing.JFrame {
             for (int i = 0; i < 100; i++) {
                 String n = s.nextLine();
                 String a = s.nextLine();
-                int id = s.nextInt();
+                int id = Integer.parseInt(s.nextLine());
                 stu[i] = new ISSStudent(n, a, id);
                 //add name to list
                 model.add(i, stu[i].getName());
@@ -43,13 +43,17 @@ public class StudentSort extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-            
-
-    
+    }
 
 //supporting swap method
 ////////////////////////////////////////////////////////////////
-    public static void selectionSort(int[] a) {
+    public static void swap(Object[] a, int x, int y) {
+        Object temp = a[x];
+        a[x] = a[y];
+        a[y] = temp;
+    }
+
+    public static void selectionSort(Object[] a) {
         for (int i = 0; i < a.length - 1; i++) {
             int minIndex = findMinimum(a, i);
             if (minIndex != i) //if lowest is not already in place
@@ -65,14 +69,11 @@ public class StudentSort extends javax.swing.JFrame {
         //assume first is also the smallest for now
         int minIndex = first;
         for (int i = first + 1; i < a.length; i++) {
-            if (((Comparable) a[i]).compareTo (a[minIndex]) <1) {
-                < compareTo
-            }(a[minIndex]
-            
-                )<1) {
+            if (((Comparable) a[i]).compareTo(a[minIndex]) < 1) {
                 minIndex = i;
             }
         }
+        return minIndex;
     }
 
     /**
@@ -85,12 +86,12 @@ public class StudentSort extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        studentList = new javax.swing.JList<>();
         sortbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(studentList);
 
         sortbtn.setText("Sort by Name");
         sortbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -126,9 +127,11 @@ public class StudentSort extends javax.swing.JFrame {
     private void sortbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortbtnActionPerformed
         // TODO add your handling code here:
         //erase the list
-        model.clear;
-                selectionSort(stu);
-                //reprint
+        model.clear();
+        selectionSort(stu);
+        for (int i = 0; i < 100; i++) {
+            model.add(i, stu[i].getName());
+        }
     }//GEN-LAST:event_sortbtnActionPerformed
 
     /**
@@ -166,9 +169,11 @@ public class StudentSort extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sortbtn;
+    private javax.swing.JList<String> studentList;
     // End of variables declaration//GEN-END:variables
+
 }
