@@ -9,6 +9,7 @@ package InsertRemove;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -116,7 +117,7 @@ public class PeopleList extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mnuexit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        clearmnu = new javax.swing.JMenuItem();
         mnuadd = new javax.swing.JMenuItem();
         mnudelete = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -192,14 +193,14 @@ public class PeopleList extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/exit.png"))); // NOI18N
-        jMenuItem2.setText("Clear");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        clearmnu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/exit.png"))); // NOI18N
+        clearmnu.setText("Clear");
+        clearmnu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                clearmnuActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(clearmnu);
 
         mnuadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/insert.png"))); // NOI18N
         mnuadd.setText("Add");
@@ -289,9 +290,10 @@ public class PeopleList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void clearmnuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearmnuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        list.clear();
+    }//GEN-LAST:event_clearmnuActionPerformed
 
     private void mnuexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexitActionPerformed
         // TODO add your handling code here:
@@ -318,7 +320,7 @@ public class PeopleList extends javax.swing.JFrame {
         String name = nametxt.getText();
         String gender = buttonGroup1.getSelection().getActionCommand(); 
         int age = Integer.parseInt(agetxt.getText());
-        System.out.println(gender);
+     //   System.out.println(gender);
         Person x = new Person(name, age, gender);
         int loc = findInsertPoint(people, x);
         people.add(loc, x);
@@ -328,10 +330,24 @@ public class PeopleList extends javax.swing.JFrame {
 
     private void optfemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optfemaleActionPerformed
         // TODO add your handling code here:
+        list.clear();
+        for (Person p : people){
+            if (p.getGender().equals("F")){
+                list.addElement(p.getName());
+            }
+        }
+        clearForm();
     }//GEN-LAST:event_optfemaleActionPerformed
 
     private void mnufemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemaleActionPerformed
-        // TODO 
+        // TODO add your handling code here:
+        list.clear();
+        for (Person p : people) {
+            if (p.getGender().equals("M")) {
+                list.addElement(p.getName());
+            }
+        }
+        clearForm();
         
     }//GEN-LAST:event_mnufemaleActionPerformed
 
@@ -381,13 +397,13 @@ public class PeopleList extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agetxt;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JMenuItem clearmnu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
