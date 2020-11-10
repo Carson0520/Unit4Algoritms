@@ -91,6 +91,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Show All"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnushowActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnufemale">
               <Properties>
@@ -110,6 +113,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Male"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnumaleActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -270,6 +276,9 @@
             <Property name="text" type="java.lang.String" value="Male"/>
             <Property name="actionCommand" type="java.lang.String" value="M"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="optmaleActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="optfemale">
           <Properties>

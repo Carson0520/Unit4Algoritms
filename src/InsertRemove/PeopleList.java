@@ -147,6 +147,11 @@ public class PeopleList extends javax.swing.JFrame {
         buttonGroup1.add(optmale);
         optmale.setText("Male");
         optmale.setActionCommand("M");
+        optmale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optmaleActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(optfemale);
         optfemale.setText("Female");
@@ -226,6 +231,11 @@ public class PeopleList extends javax.swing.JFrame {
 
         mnushow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/all.png"))); // NOI18N
         mnushow.setText("Show All");
+        mnushow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnushowActionPerformed(evt);
+            }
+        });
         jMenu3.add(mnushow);
 
         mnufemale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/female.png"))); // NOI18N
@@ -239,6 +249,11 @@ public class PeopleList extends javax.swing.JFrame {
 
         mnumale.setIcon(new javax.swing.ImageIcon(getClass().getResource("/InsertRemove/male.png"))); // NOI18N
         mnumale.setText("Male");
+        mnumale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnumaleActionPerformed(evt);
+            }
+        });
         jMenu3.add(mnumale);
 
         jMenuBar1.add(jMenu3);
@@ -330,26 +345,44 @@ public class PeopleList extends javax.swing.JFrame {
 
     private void optfemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optfemaleActionPerformed
         // TODO add your handling code here:
-        list.clear();
-        for (Person p : people){
-            if (p.getGender().equals("F")){
-                list.addElement(p.getName());
-            }
-        }
-        clearForm();
     }//GEN-LAST:event_optfemaleActionPerformed
 
     private void mnufemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemaleActionPerformed
         // TODO add your handling code here:
         list.clear();
         for (Person p : people) {
-            if (p.getGender().equals("M")) {
+            if (p.getGender().equals("F")) {
                 list.addElement(p.getName());
             }
         }
         clearForm();
         
     }//GEN-LAST:event_mnufemaleActionPerformed
+
+    private void mnushowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnushowActionPerformed
+        // TODO add your handling code here:
+         list.clear();
+        for (Person per : people) {
+          int loc = findInsertPoint(people, per);
+            list.add(loc, per.getName());
+        }
+        clearForm();
+    }//GEN-LAST:event_mnushowActionPerformed
+
+    private void mnumaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnumaleActionPerformed
+        // TODO add your handling code here:
+                list.clear();
+        for (Person p : people) {
+            if (p.getGender().equals("M")) {
+                list.addElement(p.getName());
+            }
+        }
+        clearForm();
+    }//GEN-LAST:event_mnumaleActionPerformed
+
+    private void optmaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optmaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_optmaleActionPerformed
 
     /**
      * @param args the command line arguments

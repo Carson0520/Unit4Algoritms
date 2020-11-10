@@ -12,10 +12,10 @@ public class Person implements Comparable {
     private int age;
     protected String gender;
 
-    public Person(String n, int a, String m) {
+    public Person(String n, int a, String g) {
         name = n;
         age = a;
-        gender = m;
+        gender = g;
     }
 
     public String getName() {
