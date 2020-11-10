@@ -26,27 +26,31 @@ public class BinarySearchObjects {
         System.out.println("Enter state to search for popualtion: ");
         String x = s.next();
         State temp = new State(x); //create State object to send into search
-        int loc = search(state,temp);
-                if(loc==-1)
-                    System.out.println("State not found");
-                else System.out.println("The Population of " + state[loc].getName() + " is " + state[loc].getPopulation());
+        int loc = search(state, temp);
+        if (loc == -1) {
+            System.out.println("State not found");
+        } else {
+            System.out.println("The Population of " + state[loc].getName() + " is " + state[loc].getPopulation());
+        }
     }
-            public static int search (Object[] a, Object searchValue){
-	   int left = 0;
-	   int right = a.length-1;
-	   while (left <= right){
-	      int midpoint = (left + right) / 2;
-	      int result = ((Comparable)a[midpoint]).compareTo(searchValue); 
-	      if (result == 0)
-	         return midpoint;
-	      else if (result == 0)
-	         left = midpoint + 1;
-	      else
-	         right = midpoint-1;
-	   }
-	   return -1;	
-		   
-}
+
+    public static int search(Object[] a, Object searchValue) {
+        int left = 0;
+        int right = a.length - 1;
+        while (left <= right) {
+            int midpoint = (left + right) / 2;
+            int result = ((Comparable) a[midpoint]).compareTo(searchValue);
+            if (result == 0) {
+                return midpoint;
+            } else if (result == 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        return -1;
+
+    }
 
     public static State[] fillData() {
         state[0] = new State("Alabama");
@@ -90,7 +94,7 @@ public class BinarySearchObjects {
         state[38] = new State("Rhode Island");
         state[39] = new State("South Carolina");
         state[40] = new State("South Dakota");
-        state[41] = new State ("Tennessee");
+        state[41] = new State("Tennessee");
         state[42] = new State("Texas");
         state[43] = new State("Utah");
         state[44] = new State("Vermont");

@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InsertRemove;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -17,11 +14,11 @@ public class FruitExample1 {
     public static void main(String[] args) {
 
         fruits[0] = "Apple";
-        fruits[0] = "Cherries";
-        fruits[0] = "Lemon";
-        fruits[0] = "Orange";
+        fruits[1] = "Cherries";
+        fruits[2] = "Lemon";
+        fruits[3] = "Orange";
         showList();
-        
+
         System.out.println("------------------------");
         System.out.println("Adding Kiwi to list");
         int loc = findInsertPoint(fruits, "Kiwi");
@@ -36,7 +33,7 @@ public class FruitExample1 {
 
         System.out.println("------------------------");
         System.out.println("Adding Bananna to list");
-        int loc = findInsertPoint(fruits, "Bananna");
+        loc = findInsertPoint(fruits, "Bananna");
         insert(fruits, "Bananna", loc);
         showList();
 
@@ -51,12 +48,85 @@ public class FruitExample1 {
 
         showList();
     }
-
-    public static void showList() {
+    
+        public static void showList() {
         for (int i = 0; i < logicalSize; i++) {
-            System.out.println(i);
+            System.out.println(fruits[i]);
 
         }
+    }
+
+    public static int search(Object[] a, Object searchValue) {
+        int left = 0;
+        int right = logicalSize - 1;
+        while (left <= right) {
+            int midpoint = (left + right) / 2;
+            int result = ((Comparable) a[midpoint]).compareTo(searchValue);
+            if (result == 0) {
+                return midpoint;
+            } else if (result < 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        return -1;
+
+    }
+
+    public static boolean insert(Object array[], Object newItem, int targetIndex) {
+        // Check for a full array and return false if full
+        if (logicalSize == array.length) {
+            return false;
+        }
+        // Check for valid target index or return false 
+        if (targetIndex < 0 || targetIndex > logicalSize) {
+            return false;
+        }
+        // Shift items down by one position
+        for (int i = logicalSize; i > targetIndex; i--) {
+            array[i] = array[i - 1];
+        }
+        // Add new item, increment logical size,return true                       
+        array[targetIndex] = newItem;
+        logicalSize++;
+        return true;
+    }
+
+    public static boolean delete(Object array[], int targetIndex) {
+        if (targetIndex < 0 || targetIndex >= logicalSize) {
+            return false;
+        }
+
+        // Shift items up by one position
+        for (int i = targetIndex; i < logicalSize - 1; i++) {
+            array[i] = array[i + 1];
+        }
+
+        // Decrement logical size and return true 
+        logicalSize--;
+        return true;
+    }
+        public static int findInsertPoint(Object a[], Object searchValue) {
+        int left = 0;
+        int right = logicalSize - 1;
+        int midpoint = 0;
+        int result = 0;
+
+        while (left <= right) {
+            midpoint = (left + right) / 2;
+            result = ((Comparable) a[midpoint]).compareTo(searchValue);
+
+            if (result < 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        if (result < 0) {
+            midpoint++;
+        }
+        return midpoint;
     }
 
     public static void bubbleSort(int[] a) {
@@ -107,29 +177,7 @@ public class FruitExample1 {
         }
         return minIndex;
     }
-public static int findInsertPoint(ArrayList a, Object searchValue) {
-        int left = 0;
-        int right = a.size() - 1;
-        int midpoint = 0;
-        int result = 0;
 
-        while (left <= right) {
-            midpoint = (left + right) / 2;
-            result = ((Comparable) a.get(midpoint)).compareTo(searchValue);
-
-            if (result < 0) {
-                left = midpoint + 1;
-            } else {
-                right = midpoint - 1;
-            }
-        }
-        if (result < 0) {
-            midpoint++;
-        }
-        return midpoint;
-
-    }
-}
 /////////////////////////////////////////////////////////////
     public static void insertionSort(int a[]) {
         int itemToInsert, j;

@@ -13,16 +13,29 @@ public class SortingNumbers {
             System.out.println(x + ",");
         }
         System.out.println("\n---------------------\n");
-    }
-    
-       
-       insertionSort(nums);
-       
-       for (int x : nums) {
+
+        insertionSort(nums);
+
+        for (int x : nums) {
             System.out.println(x + ",");
         }
         System.out.println("\n---------------------\n");
-      
+
+        bubbleSort(nums);
+
+        for (int x : nums) {
+            System.out.println(x + ",");
+        }
+        System.out.println("\n---------------------\n");
+
+        selectionSort(nums);
+
+        for (int x : nums) {
+            System.out.println(x + ",");
+        }
+        System.out.println("\n---------------------\n");
+    }
+
     public static void bubbleSort(int[] a) {
         int k = 0;
         boolean exchangeMade = true;
